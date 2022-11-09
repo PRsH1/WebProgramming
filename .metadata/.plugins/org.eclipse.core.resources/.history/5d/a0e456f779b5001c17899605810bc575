@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>점수</title>
+    <style>
+    	div {
+    	border:1px solid gray; border:collapse; }
+		div.yellow {
+		
+		width:400px; height:400px; background-color:lightyellow;
+		}
+       
+    </style>
+</head>
+<body>
+ 	<div class="yellow">
+ 	</div>
+</body>
+</html>

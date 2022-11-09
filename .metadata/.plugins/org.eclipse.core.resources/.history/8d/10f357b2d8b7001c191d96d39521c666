@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+	form {
+	display:inline-block;
+	}
+
+</style>
+</head>
+<body>
+
+<form>
+  
+      <select name="color">
+          <option value="yellow">yellow</option>
+          <option value="green">green</option>
+          <option value="red">red</option>
+          <option value="blue">blue</option>
+      </select>
+      <input type="submit" value="확인">
+        
+  
+</form>
+
+</body>
+</html>

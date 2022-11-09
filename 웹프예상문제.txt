@@ -1,0 +1,92 @@
+웹브라우저가 동작이 안될떄(서버문제일떄) 확인방법-아무런 페이지도 못 찾을때
+서버 번호를 확인한다(어플리케이션 프로포티스 확인)
+서버가 동작중인지 확인하기
+
+
+
+404 NOT FOUND 현상이 일어나는 이유
+-서버는 살아있음
+-요청한 URL이 틀린거임
+-컨트롤러를 못 찾는경우(해결법:@Controller를 붙였는지 확인하기)
+-컨트롤러를 찾았지만 액션메소드를 못 찾는 경우 즉  @GetMapping @PostMapping등을 안 붙인 경우
+-위 까지 다 맞았지만 요청한 URL의 이름이 틀린 경우(웹브라우저에서 요청한 URL과 다르면 오류
+-views파일의 경로가 틀린 경우(JSP) 공백이 있는 경우 서버가 못 찾아서 오류 발생(프로포티스의 프로픽스 서픽스,컨트롤러의 리턴값 등을 
+차례로 확인한다 한개라도 오류 있으면 오류 발생)
+
+
+
+구성요소
+컨트롤러 자바클래스 jsp
+
+
+제일 먼저 실행되는 것
+컨트롤러
+
+
+액션메소드
+
+JSP
+
+
+submit요청을 했을떄만 POST요청이고 나머지는 GET요청이다(URL로 요청 등)
+
+
+view파일은 서버에서 구동됨
+
+view는 html태그를 출력하는 역할을 한다.(DOCTYPE html위의 1번 줄은 출력을 하지 않는다)
+화면이 정적이다(즉 화면의 변화가 없다)-view의 역할은 여기서 종료(출력이 끝났다)
+화면을 그리는 역할은 웹브라우저의 역할
+submit 버튼을 누르면 입력한 결과값을 https request형식으로 서버에 제출한다.(submit 버튼을 눌러 서버에 요청했으므로 post형식)
+
+리퀘스트 메소드
+
+리퀘스트 파라미터-query string(?뒤의 id name값,form에서 submit버튼 누른 경우엔 입력 폼에 담긴 값)
+처음 보여지는 값은 리퀘스트 파라미터가 아님 사용자가 수정해서 입력태그에 입력된 값이 리퀘스트 파라미터임
+
+form이 submit될떄 서버에서 먼저 시작되는 것
+컨트롤러
+post메소드 요청됨
+리퀘스트 파라미터 데이터는     public String text1(Model model, String param1, String param2) 로 전달됨(만약 text1 hello text 2 world를 입력했으면
+param1에 hello param2에 world 전송 그리고 입력 폼은 다시 아무 것이나 입력하시오 1 2로 변경됨
+콘솔 창에는 hello world가 출력함
+
+
+
+model.addAttribute("value", 값)와 <input type="text" name="param1" value="${param1  } "/>는 value가 일치해야 한다
+name="param1"은 리퀘스트 파라미터의 이름임 
+
+
+(참고로 name="param1"(리퀘스트 파라미터)도 이름이 일치해야 한다
+ public String text1(Model model, String param1, String param2)
+가 일치해야 한다)
+
+
+
+이렇게 소스를 바꿨을 경우 param1은 hello가 출력되고 param2는 아무 것이나 입력하시오 2 가 된다
+만약 웹브라우저에서 URL형식으로 다시 요청했을 경우 GET요청으로 요청되며 
+  @GetMapping("form1/text1")
+    public String text1(Model model) {
+        return "form1/text1";
+    }
+이 것처럼 model.addAttribute(value)가 없어서 TEXT1에 아무것도 출력되지 않는다
+왜냐하면 새로 호출 될 떄 
+<div>
+        <label>text1:</label> 
+        <input type="text" name="param1" value="${param1  } "/>
+      </div>
+param1 값은 모델 에트리뷰트에서 불러와야 하는데 get요청이고 get메소드는 모델 에트리뷰트가 없기 떄문이다.
+즉 모델 에드에트리뷰트는 새로 실행될 떄마다 리셋된다(액션 메소드 새로 호출될 떄마다 리셋됨)
+
+
+
+웹페이지가 구동되고 리턴값이 리턴되면(즉 view가 실행이 되고 결과값이 출력된다) 액션메소드의 실행은 끝났다.  
+
+
+view 구현기술
+	JSP(한국에서 많이 사용)
+	thymeleaf(미국에서 많이 사용)
+
+
+frontend javascript
+	react.js
+	vue.js

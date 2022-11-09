@@ -1,0 +1,27 @@
+package net.skhu.Controller;
+
+import java.util.Date;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class Form4Controller {
+
+    @GetMapping("form4/login1")
+    public String login1(Model model) {
+        model.addAttribute("now", new Date());
+        return "form4/login1";
+    }
+
+    @PostMapping("form4/login1")
+    public String login1(Model model, String userid, String password, Boolean autologin) {
+        model.addAttribute("now", new Date());
+        model.addAttribute("userid", userid);
+        model.addAttribute("password", password);
+        model.addAttribute("autologin", autologin);
+        return "form4/login1";
+    }
+}
